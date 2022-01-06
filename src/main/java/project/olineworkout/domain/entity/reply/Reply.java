@@ -1,5 +1,4 @@
 package project.olineworkout.domain.entity.reply;
-
 import lombok.*;
 import project.olineworkout.domain.entity.board.Board;
 import project.olineworkout.domain.entity.user.User;
