@@ -1,10 +1,10 @@
-package project.olineworkout.domain.entity.inbody;
+package project.olineworkout.domain.entity.inBody;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import project.olineworkout.domain.entity.User.User;
+import project.olineworkout.domain.entity.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDate;

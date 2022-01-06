@@ -19,7 +19,7 @@ public class Matching {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long mtno;
+    private Long mno;
 
     private String price;
     private String purpose;
