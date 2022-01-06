@@ -10,11 +10,11 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="tbl_inbody")
+@Table(name="tbl_inBody")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
-public class Inbody {
+public class InBody {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
