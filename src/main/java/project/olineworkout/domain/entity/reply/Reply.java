@@ -1,4 +1,4 @@
-package project.olineworkout.domain.entity.Reply;
+package project.olineworkout.domain.entity.reply;
 
 import lombok.*;
 import project.olineworkout.domain.entity.board.Board;
