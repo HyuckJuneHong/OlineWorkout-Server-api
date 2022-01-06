@@ -1,20 +1,20 @@
-package project.olineworkout.domain.entity.inBody;
+package project.olineworkout.domain.entity.inbody;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import project.olineworkout.domain.entity.user.User;
+import project.olineworkout.domain.entity.User.User;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="tbl_inBody")
+@Table(name="tbl_inbody")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
-public class InBody {
+public class Inbody {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
