@@ -1,8 +1,8 @@
-package project.olineworkout.domain.entity.Board;
+package project.olineworkout.domain.entity.board;
 
 import com.sun.istack.NotNull;
 import lombok.*;
-import project.olineworkout.domain.entity.User.User;
+import project.olineworkout.domain.entity.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDate;

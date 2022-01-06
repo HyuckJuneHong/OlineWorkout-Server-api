@@ -1,12 +1,11 @@
-package project.olineworkout.domain.entity.Matching;
+package project.olineworkout.domain.entity.matching;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import project.olineworkout.domain.entity.Member.Member;
-import project.olineworkout.domain.entity.Trainer.Trainer;
-import project.olineworkout.domain.entity.User.User;
+import project.olineworkout.domain.entity.trainer.Trainer;
+import project.olineworkout.domain.entity.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -29,8 +28,8 @@ public class Matching {
     private LocalDateTime endDate;
 
     @OneToOne
-    @JoinColumn(name = "mno")
-    private Member member;
+    @JoinColumn(name = "uno")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "tno")
@@ -38,13 +37,13 @@ public class Matching {
 
     @Builder
     public Matching(String price, String purpose, LocalDateTime startDate, LocalDateTime endDate,
-                    Member member, Trainer trainer) {
+                    User user, Trainer trainer) {
 
         this.price = price;
         this.purpose = purpose;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.member = member;
+        this.user = user;
         this.trainer = trainer;
 
     }

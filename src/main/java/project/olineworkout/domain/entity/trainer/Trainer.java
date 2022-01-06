@@ -1,6 +1,5 @@
-package project.olineworkout.domain.entity.Trainer;
+package project.olineworkout.domain.entity.trainer;
 
-import com.sun.xml.bind.v2.TODO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

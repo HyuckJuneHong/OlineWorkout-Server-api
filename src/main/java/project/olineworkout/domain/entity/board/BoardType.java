@@ -1,4 +1,4 @@
-package project.olineworkout.domain.entity.Board;
+package project.olineworkout.domain.entity.board;
 
 
 public enum BoardType {
