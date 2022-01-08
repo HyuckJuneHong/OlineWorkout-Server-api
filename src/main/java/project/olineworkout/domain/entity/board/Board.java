@@ -50,6 +50,11 @@ public class Board {
         this.user = user;
     }
 
+    /**
+     * 게시판 수정 메소드
+     * @param title
+     * @param content
+     */
     public void updateBoard(String title, String content){
 
         this.title = title;
@@ -57,6 +62,9 @@ public class Board {
         this.updateDate = LocalDate.now();
     }
 
+    /**
+     * 댓글 수, 좋아요 수, 조회 수 증감 메소드
+     */
     public void viewCountUp(){
         this.viewCount += 1;
     }

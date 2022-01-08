@@ -33,6 +33,10 @@ public class Reply {
         this.board = board;
     }
 
+    /**
+     * 댓글 수정
+     * @param content
+     */
     public void updateContent(String content){
         this.content = content;
     }
