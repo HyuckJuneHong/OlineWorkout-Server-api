@@ -14,6 +14,7 @@ import javax.persistence.*;
 @Getter
 public class Nutrient {
 
+    //유저들이 직접 음식의 영양성분을 등록해 사용하기 위한 엔티티
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long nno;
@@ -22,4 +23,8 @@ public class Nutrient {
     private Long protein;  //100g당
     private Long fat;
     private Long carbs;
+
+      /*TODO
+        영양성분 업데이트 함수
+     */
 }

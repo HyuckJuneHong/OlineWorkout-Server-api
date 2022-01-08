@@ -26,11 +26,9 @@ public class User {
 
     // 필수입력사항 개인정보
     private String name;
-    private String sex;
+    private String gender;
     private String birthDay;
     private String phone;
-    private String email;
-    private String address;
 
     // 선택입력사항 개인정보
     private String weight;
@@ -54,11 +52,9 @@ public class User {
         this.identity = identity;
         this.password = password;
         this.name = name;
-        this.sex = sex;
+        this.gender = sex;
         this.birthDay = birthDay;
         this.phone = phone;
-        this.email = email;
-        this.address = address;
         this.weight = weight;
         this.height = height;
         this.createDate = createDate;
@@ -66,11 +62,9 @@ public class User {
         this.deleteYN = deleteYN;
     }
 
-    public void updateUser(String password, String phone, String email, String address, String weight, String height) {
+    public void updateUser(String password, String phone, String weight, String height) {
         this.password = password;
         this.phone = phone;
-        this.email = email;
-        this.address = address;
         this.weight = weight;
         this.height = height;
     }

@@ -27,12 +27,19 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+    //javax.validation 이 spring boot 2.3 버전부터 사라져서 따로 주입이 필요함
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.6.2'
+
     // mysql 연동위해 작성
     implementation 'mysql:mysql-connector-java'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
     // swagger 사용위해 작성
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
+    //security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    testImplementation 'org.springframework.security:spring-security-test'
 
 }
 
