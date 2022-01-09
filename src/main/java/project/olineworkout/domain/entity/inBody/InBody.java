@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import project.olineworkout.domain.entity.user.User;
+import project.olineworkout.domain.shared.BaseEntity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,11 +15,7 @@ import java.time.LocalDate;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
-public class InBody {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ino;
+public class InBody extends BaseEntity {
 
     private Long height;
     private Long weight;

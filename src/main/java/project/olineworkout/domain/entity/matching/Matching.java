@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import project.olineworkout.domain.entity.trainer.Trainer;
 import project.olineworkout.domain.entity.user.User;
+import project.olineworkout.domain.shared.BaseEntity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,18 +14,16 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "tbl_matching")
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
-public class Matching {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long mno;
+public class Matching extends BaseEntity {
 
     private String price;
     private String purpose;
     //    private String term;
+
+    @Column(name = "startDate")
     private LocalDateTime startDate;
+    @Column(name = "endDate")
     private LocalDateTime endDate;
 
     @OneToOne

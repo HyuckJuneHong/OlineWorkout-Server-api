@@ -2,6 +2,7 @@ package project.olineworkout.domain.entity.reply;
 import lombok.*;
 import project.olineworkout.domain.entity.board.Board;
 import project.olineworkout.domain.entity.user.User;
+import project.olineworkout.domain.shared.BaseEntity;
 
 import javax.persistence.*;
 
@@ -10,11 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
-public class Reply {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long rno;
+public class Reply extends BaseEntity {
 
     private String content;
 

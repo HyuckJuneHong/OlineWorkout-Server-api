@@ -1,8 +1,8 @@
 package project.olineworkout.domain.entity.user;
 
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import project.olineworkout.domain.shared.Address;
+import project.olineworkout.domain.shared.BaseEntity;
 
 import javax.persistence.*;
 
@@ -11,62 +11,59 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
-public class User {
+public class User extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long uno;
-
-    // ROLE_USER , ROLE_TRAINER , ROLE_MEMBER, ROLE_ADMIN , ROLE_MANAGER
-    private String userCode;
-
-    // id / password
+    @Column(unique = true, name = "identity", nullable = false, length = 100)
     private String identity;
+
+    @Column(name = "password", nullable = false, length = 100)
     private String password;
 
-    // 필수입력사항 개인정보
+    @Column(name = "name")
     private String name;
-    private String gender;
+
+    @Embedded
+    private Address address; //state, city, dong
+
+    // ROLE_USER , ROLE_TRAINER , ROLE_MEMBER, ROLE_ADMIN , ROLE_MANAGER
+    @Enumerated(EnumType.STRING) //enum 이름을 DB에 저장
+    private UserRole userRole;
+
+    //MALE, FEMALE
+    @Enumerated(EnumType.STRING) //enum 이름을 DB에 저장
+    private Gender gender;
+
     private String birthDay;
     private String phone;
 
     // 선택입력사항 개인정보
-    private String weight;
-    private String height;
-
-    // 공통 Entity
-    @CreationTimestamp
-    private String createDate;
-    @UpdateTimestamp
-    private String updateDate;
-    // deleteYN은 'Y', 'N' 으로 구별, 바로 DB에서 데이터 삭제하지않고 구별위해 만든 속성
-    private String deleteYN;
-
+    private int weight;
+    private int height;
 
     @Builder
-    public User(String userCode, String identity, String password, String name, String sex, String birthDay,
-                String phone, String email, String address, String weight, String height,
-                String createDate, String updateDate, String deleteYN) {
+    public User(UserRole userRole, String identity, String password, String name
+            , Gender gender, String birthDay, String phone) {
 
-        this.userCode = userCode;
         this.identity = identity;
         this.password = password;
+        this.userRole = userRole;
         this.name = name;
-        this.gender = sex;
+        this.gender = gender;
         this.birthDay = birthDay;
         this.phone = phone;
-        this.weight = weight;
-        this.height = height;
-        this.createDate = createDate;
-        this.updateDate = updateDate;
-        this.deleteYN = deleteYN;
     }
 
-    public void updateUser(String password, String phone, String weight, String height) {
-        this.password = password;
+    //아직 미완성 메소드 건들지 말아주세요!!!!
+    public void update(String name, Address address, String phone, int weight, int height, Gender gender) {
+        this.name = name;
+//        this.address = new Address();
         this.phone = phone;
         this.weight = weight;
         this.height = height;
+    }
+
+    public void updatePassword(String password){
+        this.password = password;
     }
 
 }

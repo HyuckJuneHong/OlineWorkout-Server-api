@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import project.olineworkout.domain.entity.user.User;
+import project.olineworkout.domain.shared.BaseEntity;
 
 import javax.persistence.*;
 
@@ -13,11 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Trainer {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long tno;
+public class Trainer extends BaseEntity {
 
     private String company;     //소속
     private String license;     //자격증
