@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import project.olineworkout.domain.entity.user.User;
+import project.olineworkout.domain.shared.BaseEntity;
 
 import javax.persistence.*;
 
@@ -13,11 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
-public class Diet {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long dno;
+public class Diet extends BaseEntity {
 
     private String dietType; // BREAKFAST, LUNCH, DINNER
 

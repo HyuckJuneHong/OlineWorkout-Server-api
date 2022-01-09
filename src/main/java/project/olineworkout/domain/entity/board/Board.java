@@ -3,6 +3,7 @@ package project.olineworkout.domain.entity.board;
 import com.sun.istack.NotNull;
 import lombok.*;
 import project.olineworkout.domain.entity.user.User;
+import project.olineworkout.domain.shared.BaseEntity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,13 +11,8 @@ import java.time.LocalDate;
 @Entity
 @Table(name="tbl_board")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Getter
-public class Board {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long bno;
+public class Board extends BaseEntity {
 
     @NotNull //nullable = false 와는 달리 유효성 검사까지 해줌
     private String title;

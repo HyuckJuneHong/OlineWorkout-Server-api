@@ -2,8 +2,8 @@ package project.olineworkout.domain.dto;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import project.olineworkout.domain.entity.user.Gender;
 
 import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
@@ -23,6 +23,9 @@ import javax.validation.constraints.Size;
 
     @Getter
     @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
     public static class CREATE{
 
         @ApiModelProperty(example = "사용할 아이디") //example - 지정된 임의 테스트 값을 입력 함
@@ -43,7 +46,7 @@ import javax.validation.constraints.Size;
 
         @ApiModelProperty(example = "MALE or FEMALE")
         @NotBlank(message = "성별을 입력하세요.")
-        private String gender;
+        private Gender gender;
 
         @ApiModelProperty(example = "19980122")
         @NotBlank(message = "생년월일을 입력해주세요.")

@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import project.olineworkout.domain.shared.BaseEntity;
 
 import javax.persistence.*;
 
@@ -12,12 +13,9 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
-public class Nutrient {
+public class Nutrient extends BaseEntity {
 
     //유저들이 직접 음식의 영양성분을 등록해 사용하기 위한 엔티티
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long nno;
 
     private String foodName;
     private Long protein;  //100g당
