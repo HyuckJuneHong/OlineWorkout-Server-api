@@ -26,6 +26,7 @@ public enum UserRole {
 
     private String role;
 
+    //equalsIgnoreCase 대소문자 관계 없이 체크
     public static UserRole of(String role) {
         return Arrays.stream(UserRole.values())
                 .filter(r -> r.toString().equalsIgnoreCase(role))
