@@ -1,6 +1,7 @@
 package project.olineworkout.domain.entity.user;
 
 import lombok.*;
+import project.olineworkout.domain.dto.UserDto;
 import project.olineworkout.domain.shared.Address;
 import project.olineworkout.domain.shared.BaseEntity;
 
@@ -46,20 +47,19 @@ public class User extends BaseEntity {
 
         this.identity = identity;
         this.password = password;
-        this.userRole = userRole;
         this.name = name;
         this.gender = gender;
         this.birthDay = birthDay;
         this.phone = phone;
+        this.userRole = userRole;
     }
 
-    //아직 미완성 메소드 건들지 말아주세요!!!!
-    public void update(String name, Address address, String phone, int weight, int height, Gender gender) {
-        this.name = name;
-//        this.address = new Address();
-        this.phone = phone;
-        this.weight = weight;
-        this.height = height;
+    public void update(UserDto.UPDATE update) {
+        this.name = update.getName();
+        this.phone = update.getPhone();
+        this.address = new Address(update.getState(), update.getCity(), update.getDong());
+        this.weight = update.getWeight();
+        this.height = update.getHeight();
     }
 
     public void updatePassword(String password){

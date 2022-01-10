@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import project.olineworkout.domain.entity.user.Gender;
+import project.olineworkout.domain.entity.user.UserRole;
 
 import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
@@ -15,14 +16,10 @@ import javax.validation.constraints.Size;
     1. static이 아닌 멤버 클래스의 인스턴스는 바깥 클래스의 인스턴스와 암묵적으로 연결된다.
     2. 왜냐하면 static이 아닌 멤버 클래스는 바깥 인스턴스 없이는 생성할 수 없기 때문이다.
     3. 두 클래스의 관계는 멤버 클래스의 인스턴스 안에 만들어지며, 메모리를 차지한다. 생성도 느리다.
-
-
  */
  public class UserDto {
 
-
     @Getter
-    @Setter
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
@@ -32,29 +29,47 @@ import javax.validation.constraints.Size;
         @NotBlank(message = "사용할 아이디를 입력해주세요.")
         @Size(min = 5, max = 16, message = "아이디는 최소 5자, 최대 16자 입력해야 합니다.")
         private String identity;
-
         @ApiModelProperty(example = "사용할 비밀번호")
         @NotBlank(message = "사용할 비밀번호를 입력해주세요.")
         private String password;
-
+        @ApiModelProperty(example = "홍길동")
+        @NotBlank(message = "이름을 입력해주세요.")
+        private String name;
+        @ApiModelProperty(example = "MALE or FEMALE")
+        @NotBlank(message = "성별을 입력하세요.")
+        private Gender gender;
+        @ApiModelProperty(example = "19980122")
+        @NotBlank(message = "생년월일을 입력해주세요.")
+        private String birthDay;
+        @ApiModelProperty(example = "010-xxxx-xxxx")
+        @NotBlank(message = "전화번호를 입력해주세요.")
+        private String phone;
         @ApiModelProperty(example = "ROLE_USER")
-        private String userCode;
+        private UserRole userRole;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UPDATE{
 
         @ApiModelProperty(example = "홍길동")
         @NotBlank(message = "이름을 입력해주세요.")
         private String name;
-
-        @ApiModelProperty(example = "MALE or FEMALE")
-        @NotBlank(message = "성별을 입력하세요.")
-        private Gender gender;
-
-        @ApiModelProperty(example = "19980122")
-        @NotBlank(message = "생년월일을 입력해주세요.")
-        private String birthDay;
-
+        @ApiModelProperty(example = "경기도")
+        private String state;
+        @ApiModelProperty(example = "구리시")
+        private String city;
+        @ApiModelProperty(example = "인창동")
+        private String dong;
         @ApiModelProperty(example = "010-xxxx-xxxx")
         @NotBlank(message = "전화번호를 입력해주세요.")
         private String phone;
+        @ApiModelProperty(example = "72kg")
+        private int weight;
+        @ApiModelProperty(example = "184cm")
+        private int height;
 
     }
 }
