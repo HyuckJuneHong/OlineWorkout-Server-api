@@ -17,7 +17,7 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
-    /*
+    /**
     * address, weight, height는 아직 안했음. User Entity Builder에 추가 필요
     * */
     @Test
@@ -39,7 +39,9 @@ public class UserRepositoryTest {
 
     }
 
-    // 수정날짜 업데이트 되는지 확인 + 데이터 수정 되는지 확인
+    /**
+     * 수정날짜 업데이트 되는지 확인 + 데이터 수정 되는지 확인
+     * */
     @Test
     public void 유저_데이터_수정_테스트(){
 
