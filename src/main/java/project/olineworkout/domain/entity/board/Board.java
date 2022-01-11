@@ -1,12 +1,11 @@
 package project.olineworkout.domain.entity.board;
 
-import com.sun.istack.NotNull;
 import lombok.*;
+import project.olineworkout.domain.dto.BoardDto;
 import project.olineworkout.domain.entity.user.User;
 import project.olineworkout.domain.shared.BaseEntity;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 @Table(name="tbl_board")
@@ -14,14 +13,14 @@ import java.time.LocalDate;
 @Getter
 public class Board extends BaseEntity {
 
-    @NotNull //nullable = false 와는 달리 유효성 검사까지 해줌
+    @Column(name="title", nullable = false)
     private String title;
 
+    @Column(name="content", nullable = false)
     private String content;
-    private String theme;   //게시판 테마
 
-    private LocalDate createDate;
-    private LocalDate updateDate;
+    @Enumerated(EnumType.STRING)
+    private BoardType category;
 
     private Long likeCount;
     private Long viewCount;
@@ -32,30 +31,23 @@ public class Board extends BaseEntity {
     private User user;
 
     @Builder
-    public Board(String title, String content, String theme, LocalDate createDate, LocalDate updateDate
-            , Long likeCount, Long viewCount, Long replyCount, User user) {
+    public Board(String title, String content, BoardType category, Long likeCount,
+                 Long viewCount, Long replyCount, User user) {
 
         this.title = title;
         this.content = content;
-        this.theme = theme;
-        this.createDate = createDate;
-        this.updateDate = updateDate;
+        this.category = category;
         this.likeCount = likeCount;
         this.viewCount = viewCount;
         this.replyCount = replyCount;
         this.user = user;
+
     }
 
-    /**
-     * 게시판 수정 메소드
-     * @param title
-     * @param content
-     */
-    public void updateBoard(String title, String content){
-
-        this.title = title;
-        this.content = content;
-        this.updateDate = LocalDate.now();
+    public void update(BoardDto.UPDATE update) {
+        this.title = update.getTitle();
+        this.content = update.getContent();
+        this.category = update.getCategory();
     }
 
     /**
