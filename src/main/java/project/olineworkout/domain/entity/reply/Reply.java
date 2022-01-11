@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="tbl_reply")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
+//@AllArgsConstructor
 @Getter
 public class Reply extends BaseEntity {
 

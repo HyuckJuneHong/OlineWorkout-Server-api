@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "tbl_trainer")
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @Getter
 public class Trainer extends BaseEntity {
 
