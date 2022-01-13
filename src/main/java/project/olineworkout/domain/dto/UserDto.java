@@ -26,11 +26,11 @@ import javax.validation.constraints.Size;
     public static class CREATE{
 
         @ApiModelProperty(example = "사용할 아이디") //example - 지정된 임의 테스트 값을 입력 함
-        @NotBlank(message = "사용할 아이디를 입력해주세요.")
+        @NotBlank(message = "아이디를 입력해주세요.")
         @Size(min = 5, max = 16, message = "아이디는 최소 5자, 최대 16자 입력해야 합니다.")
         private String identity;
         @ApiModelProperty(example = "사용할 비밀번호")
-        @NotBlank(message = "사용할 비밀번호를 입력해주세요.")
+        @NotBlank(message = "비밀번호를 입력해주세요.")
         private String password;
         @ApiModelProperty(example = "홍길동")
         @NotBlank(message = "이름을 입력해주세요.")
@@ -44,8 +44,32 @@ import javax.validation.constraints.Size;
         @ApiModelProperty(example = "010-xxxx-xxxx")
         @NotBlank(message = "전화번호를 입력해주세요.")
         private String phone;
-        @ApiModelProperty(example = "ROLE_USER")
+        @ApiModelProperty(example = "ROLE_USER or ROLE_TRAINER or ROLE_MEMBER or ROLE_MANAGER or ROLE_ADMIN")
+        @NotBlank(message = "유저 권한을 입력해주세요.")
         private UserRole userRole;
+    }
+
+    @Getter
+    public static class LOGIN{
+
+        @ApiModelProperty(example = "사용할 아이디")
+        @NotBlank(message = "아이디를 입력해주세요.")
+        private String identity;
+        @ApiModelProperty(example = "사용할 비밀번호")
+        @NotBlank(message = "비밀번호를 입력해주세요.")
+        private String password;
+
+        /*
+            To Do.
+            시큐리티 토큰 추가
+         */
+    }
+
+    public static class TOKEN{
+        /*
+            To Do.
+            시큐리티 토큰 추가
+         */
     }
 
     @Getter
@@ -53,6 +77,12 @@ import javax.validation.constraints.Size;
     @NoArgsConstructor
     @AllArgsConstructor
     public static class UPDATE{
+
+        //To Do... 시큐리티 더 공부하고 ThreadLocal 써서 수정 예정.
+        @ApiModelProperty(example = "시큐리티 적용전 필요해서 넣음")
+        @NotBlank
+        private String identity;
+        //------------------------------------------
 
         @ApiModelProperty(example = "홍길동")
         @NotBlank(message = "이름을 입력해주세요.")
@@ -67,9 +97,9 @@ import javax.validation.constraints.Size;
         @NotBlank(message = "전화번호를 입력해주세요.")
         private String phone;
         @ApiModelProperty(example = "72kg")
-        private int weight;
+        private Integer weight;
         @ApiModelProperty(example = "184cm")
-        private int height;
+        private Integer height;
 
     }
 }
