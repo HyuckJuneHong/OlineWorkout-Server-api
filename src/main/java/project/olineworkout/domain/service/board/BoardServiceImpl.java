@@ -54,18 +54,17 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public ResponseFormat readBoard(BoardDto.READ read) {
-//
-//        Board id 값 끌어와야하나?
-//        Optional<Board> result = boardRepository.findById(read.get..?);
-//
-//        if (result.isEmpty()) {
-//            return ResponseFormat.fail("조회가능한 게시물이 존재하지 않습니다.");
-//        }
-//
-//        result.get().viewCountUp();
-//
-//        boardRepository.save(result.get());
 
-        return null;
+        Optional<Board> result = boardRepository.findById(read.getId());
+
+        if (result.isEmpty()) {
+            return ResponseFormat.fail("조회가능한 게시물이 존재하지 않습니다.");
+        }
+
+        result.get().viewCountUp();
+
+        boardRepository.save(result.get());
+        return ResponseFormat.ok();
     }
+
 }
