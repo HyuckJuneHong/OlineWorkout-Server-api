@@ -58,9 +58,7 @@ public class BoardDto {
     @Getter
     public static class READ{
 
-        @ApiModelProperty(example = "게시판 제목")
-        @NotBlank(message = "제목을 입력하세요.")
-        private String title;
+        private Long id;
 
     }
 }
