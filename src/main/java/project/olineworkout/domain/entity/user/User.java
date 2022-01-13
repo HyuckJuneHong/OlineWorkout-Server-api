@@ -38,8 +38,8 @@ public class User extends BaseEntity {
     private String phone;
 
     // 선택입력사항 개인정보
-    private int weight;
-    private int height;
+    private Integer weight;
+    private Integer height;
 
     @Builder
     public User(UserRole userRole, String identity, String password, String name
@@ -54,12 +54,20 @@ public class User extends BaseEntity {
         this.userRole = userRole;
     }
 
-    public void update(UserDto.UPDATE update) {
+    public void updateUser(UserDto.UPDATE update) {
         this.name = update.getName();
         this.phone = update.getPhone();
-        this.address = new Address(update.getState(), update.getCity(), update.getDong());
-        this.weight = update.getWeight();
-        this.height = update.getHeight();
+        this.address = new Address("", "", "");
+        this.weight = 0;
+        this.height = 0;
+
+        if(update.getState() != null && update.getCity() != null && update.getDong() != null) {
+            this.address = new Address(update.getState(), update.getCity(), update.getDong());
+        }if(update.getWeight() != null){
+            this.weight = update.getWeight();
+        }if(update.getHeight() != null){
+            this.height = update.getHeight();
+        }
     }
 
     public void updatePassword(String password){
