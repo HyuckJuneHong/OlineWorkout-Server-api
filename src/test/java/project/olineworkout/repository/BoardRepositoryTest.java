@@ -34,9 +34,6 @@ public class BoardRepositoryTest {
                         .title("Title_" + i)
                         .content("Content_" + i)
                         .category(BoardType.FREE_BOARD)
-                        .likeCount(0L)
-                        .viewCount(0L)
-                        .replyCount(0L)
                         .user(user)
                         .build();
 

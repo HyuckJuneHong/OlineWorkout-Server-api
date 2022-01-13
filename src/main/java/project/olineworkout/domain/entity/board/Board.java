@@ -1,6 +1,8 @@
 package project.olineworkout.domain.entity.board;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 import project.olineworkout.domain.dto.BoardDto;
 import project.olineworkout.domain.entity.user.User;
 import project.olineworkout.domain.shared.BaseEntity;
@@ -11,6 +13,7 @@ import javax.persistence.*;
 @Table(name="tbl_board")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@DynamicInsert
 public class Board extends BaseEntity {
 
     @Column(name="title", nullable = false)
@@ -22,8 +25,11 @@ public class Board extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private BoardType category;
 
+    @ColumnDefault("0")
     private Long likeCount;
+    @ColumnDefault("0")
     private Long viewCount;
+    @ColumnDefault("0")
     private Long replyCount;
 
     @ManyToOne
