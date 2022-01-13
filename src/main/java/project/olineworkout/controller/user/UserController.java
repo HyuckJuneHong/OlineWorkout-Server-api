@@ -18,16 +18,16 @@ import java.time.Month;
 public class UserController {
 
 //    // 성별을 입력받아서 회원가입을 하는 컨트롤러
-//    @PostMapping
-//    public void create(@RequestBody String gender) {
+//    @PostMapping//FEMALE
+//    public void create(@RequestBody gender) {
 //
 //        LocalDateTime localDateTime = LocalDateTime.of(2012, Month.APRIL, 3, 0, 0, 0);
 //
 //        Gender sex = Gender.of(gender);
+//                     UserRole.of(role);
 //
 //        User.builder()
-//                .gender(sex)
+//                .gender()
 //                .build();
 //
-//    }
 }
