@@ -56,9 +56,21 @@ public class BoardDto {
     }
 
     @Getter
-    public static class READ{
+    public static class READ {
 
         private Long id;
+
+        @ApiModelProperty(example = "게시판 제목")
+        private String title;
+
+        @ApiModelProperty(example = "게시판 내용")
+        private String content;
+
+        @ApiModelProperty(example = "게시판 카테고리")
+        private BoardType category;
+
+        @ApiModelProperty(example = "작성자 아이디")
+        private String userIdentity;
 
     }
 }
