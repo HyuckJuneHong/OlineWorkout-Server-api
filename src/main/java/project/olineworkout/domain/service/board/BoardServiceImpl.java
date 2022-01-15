@@ -62,8 +62,8 @@ public class BoardServiceImpl implements BoardService{
         }
 
         result.get().viewCountUp();
-
         boardRepository.save(result.get());
+
         return ResponseFormat.ok();
     }
 

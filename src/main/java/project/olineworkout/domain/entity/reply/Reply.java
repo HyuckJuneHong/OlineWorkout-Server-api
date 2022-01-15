@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Entity
 @Table(name="tbl_reply")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-//@AllArgsConstructor
 @Getter
 public class Reply extends BaseEntity {
 
@@ -34,7 +33,7 @@ public class Reply extends BaseEntity {
      * 댓글 수정
      * @param content
      */
-    public void updateContent(String content){
-        this.content = content;
-    }
+//    public void updateContent(String content){
+//        this.content = content;
+//    }
 }
