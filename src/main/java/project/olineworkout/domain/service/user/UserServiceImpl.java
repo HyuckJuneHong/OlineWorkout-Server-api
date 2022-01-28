@@ -6,7 +6,12 @@ import org.springframework.stereotype.Service;
 import project.olineworkout.domain.dto.UserDto;
 import project.olineworkout.domain.entity.user.User;
 import project.olineworkout.domain.shared.ResponseFormat;
+import project.olineworkout.infrastructure.exception.BadRequestException;
+import project.olineworkout.infrastructure.exception.DuplicateException;
+import project.olineworkout.infrastructure.exception.NotFoundException;
 import project.olineworkout.repository.user.UserRepository;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,17 +26,17 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public ResponseFormat login(UserDto.LOGIN login){
+    public String login(UserDto.LOGIN login){
 
-        User user = userRepository.findByIdentity(login.getIdentity());
-        if(user == null){
-            return ResponseFormat.fail("해당 아이디는 존재하지 않음");
-        }
+
+        User user = userRepository.findByIdentity(login.getIdentity())
+                .orElseThrow(() -> new NotFoundException("UserEntity"));
+
         if(!user.getPassword().equals(login.getPassword())){
-            return ResponseFormat.fail("비밀번호가 일치하지 않음.");
+                throw new BadRequestException("비밀번호 일치하지 않음");
         }
 
-        return ResponseFormat.ok();
+        return login.getIdentity();
     }
 
     /**
@@ -40,10 +45,10 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public ResponseFormat signUp(UserDto.CREATE create){
+    public void signUp(UserDto.CREATE create){
 
         if(checkIdentity(create.getIdentity())){
-            return ResponseFormat.fail("아이디가 중복되었습니다.");
+            throw new BadRequestException("중복");
         }
 
         userRepository.save(User.builder()
@@ -55,8 +60,6 @@ public class UserServiceImpl implements UserService {
                 .phone(create.getPhone())
                 .userRole(create.getUserRole())
                 .build());
-
-        return ResponseFormat.ok();
     }
 
     /**
@@ -82,7 +85,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseFormat updateUser(UserDto.UPDATE update){
 
-        User user = userRepository.findByIdentity(update.getIdentity());
+        User user = userRepository.findByIdentity(update.getIdentity())
+                .orElseThrow(() -> new NotFoundException("UserEntity"));
         if(user == null){
             return ResponseFormat.fail("해당 아이디 존재하지 않음");
         }

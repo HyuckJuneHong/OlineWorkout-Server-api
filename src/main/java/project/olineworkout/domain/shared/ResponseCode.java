@@ -10,7 +10,8 @@ import java.util.Arrays;
 public enum ResponseCode {
 
     SUCCESS(1),
-    FAIL(2);
+    FAIL(2),
+    TOKEN_EXPIRED(3);
 
     private int code;
 

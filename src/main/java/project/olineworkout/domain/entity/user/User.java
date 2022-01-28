@@ -1,5 +1,6 @@
 package project.olineworkout.domain.entity.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import project.olineworkout.domain.dto.UserDto;
 import project.olineworkout.domain.shared.Address;
@@ -17,6 +18,7 @@ public class User extends BaseEntity {
     @Column(unique = true, name = "identity", nullable = false, length = 100)
     private String identity;
 
+    @JsonIgnore //서버에서 Json 응답을 생성할때 해당 필드는 ignore
     @Column(name = "password", nullable = false, length = 100)
     private String password;
 

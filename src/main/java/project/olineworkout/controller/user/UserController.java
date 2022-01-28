@@ -1,33 +1,34 @@
 package project.olineworkout.controller.user;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import project.olineworkout.domain.entity.user.Gender;
-import project.olineworkout.domain.entity.user.User;
+import project.olineworkout.domain.dto.UserDto;
 import project.olineworkout.domain.service.user.UserService;
+import project.olineworkout.domain.shared.ResponseFormat;
 
-import java.time.LocalDateTime;
-import java.time.Month;
-
-@RequestMapping("/user")
+@RequestMapping("/onlineworkout/user")
 @RestController
+@RequiredArgsConstructor
 public class UserController {
 
-//    // 성별을 입력받아서 회원가입을 하는 컨트롤러
-//    @PostMapping//FEMALE
-//    public void create(@RequestBody gender) {
-//
-//        LocalDateTime localDateTime = LocalDateTime.of(2012, Month.APRIL, 3, 0, 0, 0);
-//
-//        Gender sex = Gender.of(gender);
-//                     UserRole.of(role);
-//
-//        User.builder()
-//                .gender()
-//                .build();
-//
+    private final UserService userService;
+
+    @ApiOperation("로그인")
+    @PostMapping("/login")
+    public ResponseFormat<String> login(@RequestBody UserDto.LOGIN dto) {
+        return ResponseFormat.ok(userService.login(dto));
+    }
+
+
+    @ApiOperation("회원가입")
+    @PostMapping("/signUp")
+    public ResponseFormat<Void> signUp(@RequestBody UserDto.CREATE dto) {
+
+        userService.signUp(dto);
+        return ResponseFormat.ok();
+    }
 }
