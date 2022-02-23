@@ -7,7 +7,6 @@ import project.olineworkout.domain.dto.UserDto;
 import project.olineworkout.domain.entity.user.User;
 import project.olineworkout.domain.shared.ResponseFormat;
 import project.olineworkout.infrastructure.exception.BadRequestException;
-import project.olineworkout.infrastructure.exception.DuplicateException;
 import project.olineworkout.infrastructure.exception.NotFoundException;
 import project.olineworkout.repository.user.UserRepository;
 

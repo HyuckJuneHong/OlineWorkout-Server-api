@@ -3,7 +3,6 @@ package project.olineworkout.infrastructure.security.jwt;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.security.SignatureException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -48,9 +47,8 @@ public class JwtTokenProvider {
     public boolean isUsable(String token) {
 
         try{
-            Jwts.parserBuilder()
+            Jwts.parser()
                     .setSigningKey(generateKey())
-                    .build()
                     .parseClaimsJws(token);
 
             return true;
