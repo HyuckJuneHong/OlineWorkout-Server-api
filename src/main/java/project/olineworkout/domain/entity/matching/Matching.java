@@ -1,11 +1,10 @@
 package project.olineworkout.domain.entity.matching;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import project.olineworkout.domain.entity.trainer.Trainer;
-import project.olineworkout.domain.entity.user.User;
+import project.olineworkout.domain.entity.member.Member;
 import project.olineworkout.domain.shared.BaseEntity;
 
 import javax.persistence.*;
@@ -28,7 +27,7 @@ public class Matching extends BaseEntity {
 
     @OneToOne
     @JoinColumn(name = "uno")
-    private User user;
+    private Member member;
 
     @ManyToOne
     @JoinColumn(name = "tno")
@@ -36,13 +35,13 @@ public class Matching extends BaseEntity {
 
     @Builder
     public Matching(String price, String purpose, LocalDateTime startDate, LocalDateTime endDate,
-                    User user, Trainer trainer) {
+                    Member member, Trainer trainer) {
 
         this.price = price;
         this.purpose = purpose;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.user = user;
+        this.member = member;
         this.trainer = trainer;
 
     }

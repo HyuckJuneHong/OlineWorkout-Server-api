@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import project.olineworkout.domain.entity.board.Board;
-import project.olineworkout.domain.entity.user.User;
+import project.olineworkout.domain.entity.member.Member;
 
 import javax.validation.constraints.NotBlank;
 
@@ -22,7 +22,7 @@ public class ReplyDto {
         @NotBlank(message = "댓글 내용을 입력하세요.")
         private String content;
 
-        private User user;
+        private Member member;
 
         private Board board;
     }
@@ -37,7 +37,7 @@ public class ReplyDto {
         @NotBlank(message = "댓글 내용을 입력하세요.")
         private String content;
 
-        private User user;
+        private Member member;
 
         private Board board;
     }
