@@ -1,4 +1,4 @@
-package project.olineworkout.domain.entity.user;
+package project.olineworkout.domain.entity.member;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

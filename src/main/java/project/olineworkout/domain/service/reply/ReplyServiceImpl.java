@@ -20,7 +20,7 @@ public class ReplyServiceImpl implements ReplyService{
                 Reply.builder()
                         .content(create.getContent())
                         .board(create.getBoard())
-                        .user(create.getUser())
+                        .user(create.getMember())
                         .build()
         );
 

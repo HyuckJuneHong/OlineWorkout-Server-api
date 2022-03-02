@@ -1,8 +1,8 @@
-package project.olineworkout.domain.entity.user;
+package project.olineworkout.domain.entity.member;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import project.olineworkout.domain.dto.UserDto;
+import project.olineworkout.domain.dto.MemberDto;
 import project.olineworkout.domain.shared.Address;
 import project.olineworkout.domain.shared.BaseEntity;
 
@@ -13,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
-public class User extends BaseEntity {
+public class Member extends BaseEntity {
 
     @Column(unique = true, name = "identity", nullable = false, length = 100)
     private String identity;
@@ -30,7 +30,7 @@ public class User extends BaseEntity {
 
     // ROLE_USER , ROLE_TRAINER , ROLE_MEMBER, ROLE_ADMIN , ROLE_MANAGER
     @Enumerated(EnumType.STRING) //enum 이름을 DB에 저장
-    private UserRole userRole;
+    private MemberRole memberRole;
 
     //MALE, FEMALE
     @Enumerated(EnumType.STRING) //enum 이름을 DB에 저장
@@ -44,7 +44,7 @@ public class User extends BaseEntity {
     private Integer height;
 
     @Builder
-    public User(UserRole userRole, String identity, String password, String name
+    public Member(MemberRole memberRole, String identity, String password, String name
             , Gender gender, String birthDay, String phone) {
 
         this.identity = identity;
@@ -53,10 +53,10 @@ public class User extends BaseEntity {
         this.gender = gender;
         this.birthDay = birthDay;
         this.phone = phone;
-        this.userRole = userRole;
+        this.memberRole = memberRole;
     }
 
-    public void updateUser(UserDto.UPDATE update) {
+    public void updateUser(MemberDto.UPDATE update) {
         this.name = update.getName();
         this.phone = update.getPhone();
         this.address = new Address("", "", "");

@@ -1,12 +1,10 @@
 package project.olineworkout.domain.dto;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
-import project.olineworkout.domain.entity.user.Gender;
-import project.olineworkout.domain.entity.user.UserRole;
+import project.olineworkout.domain.entity.member.Gender;
+import project.olineworkout.domain.entity.member.MemberRole;
 
-import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -17,7 +15,7 @@ import javax.validation.constraints.Size;
     2. 왜냐하면 static이 아닌 멤버 클래스는 바깥 인스턴스 없이는 생성할 수 없기 때문이다.
     3. 두 클래스의 관계는 멤버 클래스의 인스턴스 안에 만들어지며, 메모리를 차지한다. 생성도 느리다.
  */
- public class UserDto {
+ public class MemberDto {
 
     @Getter
     @NoArgsConstructor
@@ -46,7 +44,7 @@ import javax.validation.constraints.Size;
         private String phone;
         @ApiModelProperty(example = "ROLE_USER or ROLE_TRAINER or ROLE_MEMBER or ROLE_MANAGER or ROLE_ADMIN")
         @NotBlank(message = "유저 권한을 입력해주세요.")
-        private UserRole userRole;
+        private MemberRole memberRole;
     }
 
     @Getter

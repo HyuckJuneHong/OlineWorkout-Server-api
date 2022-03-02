@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import project.olineworkout.domain.entity.board.BoardType;
-import project.olineworkout.domain.entity.user.User;
+import project.olineworkout.domain.entity.member.Member;
 
 import javax.validation.constraints.NotBlank;
 
@@ -30,7 +30,7 @@ public class BoardDto {
         @NotBlank(message = "카테고리를 입력하세요.")
         private BoardType category;
 
-        private User user;
+        private Member member;
 
     }
 
@@ -52,7 +52,7 @@ public class BoardDto {
         @NotBlank(message = "카테고리를 입력하세요.")
         private BoardType category;
 
-        private User user;
+        private Member member;
     }
 
     @Getter

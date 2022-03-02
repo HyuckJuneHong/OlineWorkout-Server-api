@@ -1,22 +1,20 @@
-package project.olineworkout.domain.service.user;
+package project.olineworkout.domain.service.member;
 
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import project.olineworkout.domain.dto.UserDto;
-import project.olineworkout.domain.entity.user.User;
+import project.olineworkout.domain.dto.MemberDto;
+import project.olineworkout.domain.entity.member.Member;
 import project.olineworkout.domain.shared.ResponseFormat;
 import project.olineworkout.infrastructure.exception.BadRequestException;
 import project.olineworkout.infrastructure.exception.NotFoundException;
-import project.olineworkout.repository.user.UserRepository;
-
-import java.util.Optional;
+import project.olineworkout.repository.member.MemberRepository;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class MemberServiceImpl implements MemberService {
 
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
 
     /**
      * 로그인 서비스
@@ -25,13 +23,13 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public String login(UserDto.LOGIN login){
+    public String login(MemberDto.LOGIN login){
 
 
-        User user = userRepository.findByIdentity(login.getIdentity())
-                .orElseThrow(() -> new NotFoundException("UserEntity"));
+        Member member = memberRepository.findByIdentity(login.getIdentity())
+                .orElseThrow(() -> new NotFoundException("MemberEntity"));
 
-        if(!user.getPassword().equals(login.getPassword())){
+        if(!member.getPassword().equals(login.getPassword())){
                 throw new BadRequestException("비밀번호 일치하지 않음");
         }
 
@@ -44,20 +42,20 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public void signUp(UserDto.CREATE create){
+    public void signUp(MemberDto.CREATE create){
 
         if(checkIdentity(create.getIdentity())){
             throw new BadRequestException("중복");
         }
 
-        userRepository.save(User.builder()
+        memberRepository.save(Member.builder()
                 .identity(create.getIdentity())
                 .password(create.getPassword())
                 .name(create.getName())
                 .gender(create.getGender())
                 .birthDay(create.getBirthDay())
                 .phone(create.getPhone())
-                .userRole(create.getUserRole())
+                .memberRole(create.getMemberRole())
                 .build());
     }
 
@@ -68,7 +66,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public boolean checkIdentity(String identity){
-        return userRepository.existsByIdentity(identity);
+        return memberRepository.existsByIdentity(identity);
     }
 
 
@@ -82,16 +80,16 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public ResponseFormat updateUser(UserDto.UPDATE update){
+    public ResponseFormat updateUser(MemberDto.UPDATE update){
 
-        User user = userRepository.findByIdentity(update.getIdentity())
+        Member member = memberRepository.findByIdentity(update.getIdentity())
                 .orElseThrow(() -> new NotFoundException("UserEntity"));
-        if(user == null){
+        if(member == null){
             return ResponseFormat.fail("해당 아이디 존재하지 않음");
         }
 
-        user.updateUser(update);
-        userRepository.save(user);
+        member.updateUser(update);
+        memberRepository.save(member);
 
         return ResponseFormat.ok();
     }

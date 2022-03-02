@@ -4,7 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import project.olineworkout.domain.dto.BoardDto;
-import project.olineworkout.domain.entity.user.User;
+import project.olineworkout.domain.entity.member.Member;
 import project.olineworkout.domain.shared.BaseEntity;
 
 import javax.persistence.*;
@@ -34,11 +34,11 @@ public class Board extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "uno")
-    private User user;
+    private Member member;
 
     @Builder
     public Board(String title, String content, BoardType category, Long likeCount,
-                 Long viewCount, Long replyCount, User user) {
+                 Long viewCount, Long replyCount, Member member) {
 
         this.title = title;
         this.content = content;
@@ -46,7 +46,7 @@ public class Board extends BaseEntity {
         this.likeCount = likeCount;
         this.viewCount = viewCount;
         this.replyCount = replyCount;
-        this.user = user;
+        this.member = member;
 
     }
 

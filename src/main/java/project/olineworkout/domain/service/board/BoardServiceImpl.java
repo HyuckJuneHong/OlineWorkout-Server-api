@@ -4,10 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import project.olineworkout.domain.dto.BoardDto;
 import project.olineworkout.domain.entity.board.Board;
-import project.olineworkout.domain.entity.user.User;
 import project.olineworkout.domain.shared.ResponseFormat;
 import project.olineworkout.repository.board.BoardRepository;
-import project.olineworkout.repository.user.UserRepository;
+import project.olineworkout.repository.member.MemberRepository;
 
 import java.util.Optional;
 
@@ -16,7 +15,7 @@ import java.util.Optional;
 public class BoardServiceImpl implements BoardService{
 
     private final BoardRepository boardRepository;
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     public ResponseFormat writeBoard(BoardDto.CREATE create) {
@@ -31,7 +30,7 @@ public class BoardServiceImpl implements BoardService{
                         .title(create.getTitle())
                         .content(create.getContent())
                         .category(create.getCategory())
-                        .user(create.getUser())
+                        .user(create.getMember())
                         .build()
         );
 

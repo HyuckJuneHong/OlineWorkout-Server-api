@@ -1,4 +1,4 @@
-package project.olineworkout.domain.entity.user;
+package project.olineworkout.domain.entity.member;
 
 
 import lombok.AllArgsConstructor;
@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 @Getter
 @AllArgsConstructor
-public enum UserRole {
+public enum MemberRole {
 
     /**
      * 기본 회원가입시 유저로
@@ -27,8 +27,8 @@ public enum UserRole {
     private String role;
 
     //equalsIgnoreCase 대소문자 관계 없이 체크
-    public static UserRole of(String role) {
-        return Arrays.stream(UserRole.values())
+    public static MemberRole of(String role) {
+        return Arrays.stream(MemberRole.values())
                 .filter(r -> r.toString().equalsIgnoreCase(role))
                 .findAny().orElseThrow(() -> new RuntimeException("해당 Role 권한을 찾을 수 없습니다."));
     }

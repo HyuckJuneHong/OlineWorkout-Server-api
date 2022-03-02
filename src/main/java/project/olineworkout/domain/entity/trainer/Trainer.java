@@ -1,10 +1,9 @@
 package project.olineworkout.domain.entity.trainer;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import project.olineworkout.domain.entity.user.User;
+import project.olineworkout.domain.entity.member.Member;
 import project.olineworkout.domain.shared.BaseEntity;
 
 import javax.persistence.*;
@@ -24,17 +23,17 @@ public class Trainer extends BaseEntity {
 
     @OneToOne
     @JoinColumn(name = "uno")
-    private User user;
+    private Member member;
 
     @Builder
-    public Trainer(String company, String license, String career, String annual, String major, User user) {
+    public Trainer(String company, String license, String career, String annual, String major, Member member) {
 
         this.company = company;
         this.license = license;
         this.career = career;
         this.annual = annual;
         this.major = major;
-        this.user = user;
+        this.member = member;
 
     }
 

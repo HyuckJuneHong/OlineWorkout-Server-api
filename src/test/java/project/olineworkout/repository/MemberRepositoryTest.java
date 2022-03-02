@@ -3,19 +3,19 @@ package project.olineworkout.repository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import project.olineworkout.domain.entity.user.Gender;
-import project.olineworkout.domain.entity.user.User;
-import project.olineworkout.domain.entity.user.UserRole;
-import project.olineworkout.repository.user.UserRepository;
+import project.olineworkout.domain.entity.member.Gender;
+import project.olineworkout.domain.entity.member.Member;
+import project.olineworkout.domain.entity.member.MemberRole;
+import project.olineworkout.repository.member.MemberRepository;
 
 import java.util.Optional;
 import java.util.stream.IntStream;
 
 @SpringBootTest
-public class UserRepositoryTest {
+public class MemberRepositoryTest {
 
     @Autowired
-    private UserRepository userRepository;
+    private MemberRepository memberRepository;
 
     /**
     * address, weight, height는 아직 안했음. User Entity Builder에 추가 필요
@@ -24,17 +24,17 @@ public class UserRepositoryTest {
     public void 유저_데이터_생성_테스트(){
 
         IntStream.rangeClosed(1,10).forEach(k -> {
-            User user = User.builder()
+            Member member = Member.builder()
                     .identity("id_"+k)
                     .password("password_"+k)
                     .name("user_"+k)
-                    .userRole(UserRole.ROLE_USER)
+                    .userRole(MemberRole.ROLE_USER)
                     .gender(Gender.MALE)
                     .birthDay("000000")
                     .phone("010-0000-0000")
                     .build();
 
-            System.out.println(userRepository.save(user));
+            System.out.println(memberRepository.save(member));
         });
 
     }
@@ -45,14 +45,14 @@ public class UserRepositoryTest {
     @Test
     public void 유저_데이터_수정_테스트(){
 
-        Optional<User> result = userRepository.findById(10L);
+        Optional<Member> result = memberRepository.findById(10L);
 
         if(result.isPresent()){
-            User user = result.get();
+            Member member = result.get();
 
-            user.updatePassword("updatePassword_10");
+            member.updatePassword("updatePassword_10");
 
-            userRepository.save(user);
+            memberRepository.save(member);
         }
 
     }

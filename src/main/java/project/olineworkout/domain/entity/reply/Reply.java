@@ -1,7 +1,7 @@
 package project.olineworkout.domain.entity.reply;
 import lombok.*;
 import project.olineworkout.domain.entity.board.Board;
-import project.olineworkout.domain.entity.user.User;
+import project.olineworkout.domain.entity.member.Member;
 import project.olineworkout.domain.shared.BaseEntity;
 
 import javax.persistence.*;
@@ -16,16 +16,16 @@ public class Reply extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "uno")
-    private User user;
+    private Member member;
 
     @ManyToOne
     @JoinColumn(name = "bno") //외래키를 매핑할 때 사용.
     private Board board;
 
     @Builder
-    public Reply(String content, User user, Board board) {
+    public Reply(String content, Member member, Board board) {
         this.content = content;
-        this.user = user;
+        this.member = member;
         this.board = board;
     }
 
