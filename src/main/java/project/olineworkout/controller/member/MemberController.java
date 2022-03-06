@@ -10,7 +10,7 @@ import project.olineworkout.domain.dto.MemberDto;
 import project.olineworkout.domain.service.member.MemberService;
 import project.olineworkout.domain.shared.ResponseFormat;
 
-@RequestMapping("/onlineworkout/user")
+@RequestMapping("/onlineworkout")
 @RestController
 @RequiredArgsConstructor
 public class MemberController {
