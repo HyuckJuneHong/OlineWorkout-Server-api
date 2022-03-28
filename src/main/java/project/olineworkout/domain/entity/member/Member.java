@@ -28,7 +28,7 @@ public class Member extends BaseEntity {
     @Embedded
     private Address address; //state, city, dong
 
-    // ROLE_USER , ROLE_TRAINER , ROLE_MEMBER, ROLE_ADMIN , ROLE_MANAGER
+    //ROLE_MEMBER,   ROLE_TRAINER, ROLE_ADMIN , ROLE_MANAGER
     @Enumerated(EnumType.STRING) //enum 이름을 DB에 저장
     private MemberRole memberRole;
 
@@ -36,8 +36,14 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING) //enum 이름을 DB에 저장
     private Gender gender;
 
+    @Column(name = "birth_day")
     private String birthDay;
+
+    @Column(name = "phone")
     private String phone;
+
+    @Column(name = "refresh_token", length = 600)
+    private String refreshToken;
 
     // 선택입력사항 개인정보
     private Integer weight;
@@ -70,6 +76,10 @@ public class Member extends BaseEntity {
         }if(update.getHeight() != null){
             this.height = update.getHeight();
         }
+    }
+
+    public void updateRefreshToken(String refreshToken){
+        this.refreshToken = refreshToken;
     }
 
     public void updatePassword(String password){

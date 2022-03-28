@@ -28,7 +28,7 @@ public class MemberRepositoryTest {
                     .identity("id_"+k)
                     .password("password_"+k)
                     .name("user_"+k)
-                    .userRole(MemberRole.ROLE_USER)
+                    .memberRole(MemberRole.ROLE_MEMBER)
                     .gender(Gender.MALE)
                     .birthDay("000000")
                     .phone("010-0000-0000")

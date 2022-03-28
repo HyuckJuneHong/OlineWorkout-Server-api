@@ -18,9 +18,8 @@ public enum MemberRole {
      * 모든 권한과 접근제한이 없는 관리자 (관리자는 유저를 매니저로 승격 시킬 수 있다.)
      */
     // 유저, 트레이너, 멤버, 매니저, 관리자
-    ROLE_USER("유저"),
-    ROLE_TRAINER("트레이너"),
     ROLE_MEMBER("멤버"),
+    ROLE_TRAINER("트레이너"),
     ROLE_MANAGER("매니저"),
     ROLE_ADMIN("관리자");
 

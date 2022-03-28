@@ -1,12 +1,10 @@
 package project.olineworkout.infrastructure.security;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import project.olineworkout.domain.entity.member.Member;
 import project.olineworkout.repository.member.MemberRepository;
 
 
@@ -21,9 +19,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     //인증의 주체에 대한 정보를 가져오는 메소드
     @Override
     public UserDetails loadUserByUsername(String identity) throws UsernameNotFoundException {
-        Member member = memberRepository.findByIdentity(identity)
-                .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
 
-        return new User(member.getIdentity(), member.getPassword(), null);
+        return null;
     }
 }

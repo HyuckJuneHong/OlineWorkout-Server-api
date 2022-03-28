@@ -15,6 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
+/** extends OncePerRequestFilter
+ * - 동일한 request 안에서 한번만 필터링을 할 수 있게 해주기 위해 상속
+ * - doFilterInternal 메소드 제공
+ */
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
