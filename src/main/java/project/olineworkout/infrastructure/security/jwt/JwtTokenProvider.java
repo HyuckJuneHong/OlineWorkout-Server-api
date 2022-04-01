@@ -53,7 +53,7 @@ public class JwtTokenProvider {
          * 인코딩 or 암호화 Ex : "Hello" -> Base64 형태
          * 디코딩 or 복호화 Ex : Base64 형태 -> "Hello"
          */
-        SECRET_KEY = Base64.getEncoder().encodeToString(SECRET_KEY.getBytes());
+        SECRET_KEY = Base64.getEncoder().encodeToString(SECRET_KEY.getBytes()); //시크릿 키 인코딩
     }
 
     /**
@@ -64,7 +64,7 @@ public class JwtTokenProvider {
      * @return 사용자 정보를 포함한 Claims 객체
      */
     private Claims generateClaims(String identity, MemberRole role, String name){
-        Claims claims = Jwts.claims();  //name/value 의 한 쌍으로 이뤄져 있다.
+        Claims claims = Jwts.claims();  //클레임은 name / value 의 한 쌍으로 이루어져 있다.
         claims.put(MEMBER, identity);
         claims.put("role", role);
         claims.put("name",name);
@@ -88,7 +88,7 @@ public class JwtTokenProvider {
 
         //HS256 = sha256 + 대칭키를 사용하는 암호화 방식
         return Jwts.builder()                                       //jjwt library의 Jwts로부터 jwt을 생성
-                .setHeaderParam("typ", "JWT")           //JWT Header가 지닐 정보들을 담음. 타입(typ)이 JWT임을 명시
+                .setHeaderParam("typ", "JWT")           //JWT Header가 지닐 정보들을 담음. / 타입(typ)이 JWT임을 명시
                 .setClaims(generateClaims(identity, role, name))    //토큰에서 사용할 정보의 조각들인 클레임 설정
                 .setIssuedAt(issueDate)                             //발급 시각 Payload에 담기 위해
                 .setSubject("AccessToken")                          //토큰 제목 즉, 토큰 용도
@@ -103,15 +103,15 @@ public class JwtTokenProvider {
      * @return 사용자의 새로운 AccessToken
      */
     public String createAccessToken(String refreshToken){
-        Member member = findMemberByToken(refreshToken);
+        Member member = findMemberByToken(refreshToken);  //토큰 발급
 
-        if(!member.getRefreshToken().equals(refreshToken))
+        if(!member.getRefreshToken().equals(refreshToken)) //토큰이 다르다면,  에러
             throw new UnauthorizedException("해당 기능을 사용할 수 없습니다.", 403);
 
         return createAccessToken(member.getIdentity(), member.getMemberRole(), member.getName());
     }
 
-    /**
+    /** 여기부터 다시 시작
      * 사용자 정보를 통해 RefreshToken 을 만드는 메서드
      * @param identity 사용자 아이디
      * @param role 사용자 권한
@@ -139,9 +139,9 @@ public class JwtTokenProvider {
      */
     private byte[] generateKey() {
         try{
-            return SECRET_KEY.getBytes("UTF-8");    //시크릿 키 반환
+            return SECRET_KEY.getBytes("UTF-8");    //시크릿 키 반환 (즉, 시크릿 키 디코딩)
         }catch (UnsupportedEncodingException e){
-            throw new UserDefineException("키 변환에 실패하였습니다. ", e.getMessage());
+            throw new UserDefineException("키 변환에 실패하였습니다. ", e.getMessage()); //실패 시 자신의 키가 아님.
         }
     }
 
@@ -154,9 +154,10 @@ public class JwtTokenProvider {
     public boolean isUsable(String token) {
 
         try{
-            Jwts.parser()
-                    .setSigningKey(generateKey())
-                    .parseClaimsJws(token);
+            Jwts.parser()                           //구성한 다음 JWT 문자열을 구문 분석하는 데 사용할 수 있는 JwtParser 인스턴스
+                    .setSigningKey(generateKey())   //이전에 설정된 키를 덮어씁니다. (반환: 메서드 연결을 위한 파싱)
+                    .parseClaimsJws(token);         //해당 토큰 문자열이 클레임 Jws로 파싱 (파싱 및 검증, 실패 시 Exception
+                                                    //parseClaimsJws 반환: 지정된 컴팩트 클레임 JWS 문자열을 반영하는 Jws 인스턴스
             return true;
         }catch (SignatureException e) {
             log.error("Invalid JWT signature");
@@ -185,7 +186,7 @@ public class JwtTokenProvider {
         return Optional.ofNullable(request.getHeader("X-AUTH-TOKEN"));
     }
 
-    /** To do what?
+    /** 1. JwtParser 가져오고 -> 키를 덮어쓴 후 -> 해당 token을 클레임 Jws로 파싱 -> JWT BODY의 String 또는 Claims 인스턴스
      * 토큰을 이용하여 사용자 아이디를 찾는 메서드
      * @param token 토큰
      * @return 사용자의 아이디
@@ -195,7 +196,7 @@ public class JwtTokenProvider {
                 .setSigningKey(generateKey())
                 .parseClaimsJws(token)
                 .getBody()
-                .get(MEMBER);
+                .get(MEMBER); //파라미터(key) – 관련 값이 반환될 키 / return : 지정된 키가 매핑되는 값, 키에 대한 매핑이 없으면  null
     }
 
     /** To do what?
@@ -218,8 +219,8 @@ public class JwtTokenProvider {
      * @Exception UserNotFoundException : 해당 회원을 찾을 수 없는 경우 발생하는 예외
      */
     public Member findMemberByToken(String token){
-        return memberRepository.findByIdentity(findIdentityByToken(token))
-                .orElseThrow(() -> new NotFoundException("MemberEntity"));
+        return memberRepository.findByIdentity(findIdentityByToken(token)) //해당 아이디를 가지는 member를 찾아 토큰을 반환
+                .orElseThrow(() -> new NotFoundException("MemberEntity")); //없으면 Exception
     }
 
     /** To do what?

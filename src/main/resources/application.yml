@@ -13,3 +13,11 @@ spring:
     show-sql: true
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
+  jwt:
+    header: Authorization
+    #HS512 알고리즘을 사용할 것이기 때문에 secret Key는 512bit, 즉 64byte 이상을 사용해야 한다.
+    #터미널에서 secret Key를 Base64로 인코딩하여 secret 항복에 채워넣는다.
+    #echo 'silvernine-tech-spring-boot-jwt-tutorial-secret-silvernine-tech-spring-boot-jwt-tutorial-secret'|base64
+    secret: hellothisissecretkeygetit
+    token-validity-in-seconds: 86400
