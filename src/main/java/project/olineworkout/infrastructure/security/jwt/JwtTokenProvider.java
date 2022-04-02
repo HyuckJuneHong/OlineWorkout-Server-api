@@ -105,13 +105,13 @@ public class JwtTokenProvider {
     public String createAccessToken(String refreshToken){
         Member member = findMemberByToken(refreshToken);  //토큰 발급
 
-        if(!member.getRefreshToken().equals(refreshToken)) //토큰이 다르다면,  에러
+        if(!member.getRefreshToken().equals(refreshToken)) //토큰이 다르다면, 예외 처리
             throw new UnauthorizedException("해당 기능을 사용할 수 없습니다.", 403);
 
         return createAccessToken(member.getIdentity(), member.getMemberRole(), member.getName());
     }
 
-    /** 여기부터 다시 시작
+    /**
      * 사용자 정보를 통해 RefreshToken 을 만드는 메서드
      * @param identity 사용자 아이디
      * @param role 사용자 권한
@@ -199,7 +199,7 @@ public class JwtTokenProvider {
                 .get(MEMBER); //파라미터(key) – 관련 값이 반환될 키 / return : 지정된 키가 매핑되는 값, 키에 대한 매핑이 없으면  null
     }
 
-    /** To do what?
+    /**
      * 토큰을 이용하여 사용자 권한을 찾는 메서드
      * @param token 토큰
      * @return 사용자의 아이디
@@ -223,21 +223,26 @@ public class JwtTokenProvider {
                 .orElseThrow(() -> new NotFoundException("MemberEntity")); //없으면 Exception
     }
 
-    /** To do what?
+    /**
      * 토큰을 통해서 Authentication 객체를 만들어내는 메서드
      * @param token 토큰
      * @return 사용자 정보를 담은 UsernamePasswordAuthenticationToken 객체
      */
     public Authentication getAuthentication(String token){
         UserDetails userDetails =
+                //토큰을 통해 사용자 아이디를 찾고 해당 권한을 찾아 해당 권한 기능을 가진 User를 생성
                 new User(findIdentityByToken(token),
                         "",
-                        getAuthorities(MemberRole.of(findRoleByToken(token))));
+                        getAuthorities(MemberRole.of(findRoleByToken(token)))); //사용자에게 부여된 권한을 반환합니다.
 
+        /**
+         * 이 생성자는 신뢰할 수 있는(즉, isAuthenticated() = true) 인증 토큰 생성에 만족하는 AuthenticationManager
+         * 또는 AuthenticationProvider 구현에서만 사용해야 합니다.
+         */
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
-    /** To do what?
+    /**
      * 권한을 읽어서 해당 유저의 권한이 무엇이 인지 Set에 저장하는 메서드
      * @param role 권한
      * @return 권한 정보를 담은 Set 객체
