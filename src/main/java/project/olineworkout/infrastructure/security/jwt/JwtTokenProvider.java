@@ -33,7 +33,7 @@ public class JwtTokenProvider {
     private String SECRET_KEY;
 
     // To do What?
-    final String MEMBER = "memberId";
+    final String User = "memberId";
 
     //토큰 유효시간 Ex) 60분 = 1000L * 60 * 60
     private final long ACCESS_EXPIRE = 1000 * 60 * 30; //엑세스 만료 (30분)
@@ -65,7 +65,7 @@ public class JwtTokenProvider {
      */
     private Claims generateClaims(String identity, MemberRole role, String name){
         Claims claims = Jwts.claims();  //클레임은 name / value 의 한 쌍으로 이루어져 있다.
-        claims.put(MEMBER, identity);
+        claims.put(User, identity);
         claims.put("role", role);
         claims.put("name",name);
 
@@ -196,7 +196,7 @@ public class JwtTokenProvider {
                 .setSigningKey(generateKey())
                 .parseClaimsJws(token)
                 .getBody()
-                .get(MEMBER); //파라미터(key) – 관련 값이 반환될 키 / return : 지정된 키가 매핑되는 값, 키에 대한 매핑이 없으면  null
+                .get(User); //파라미터(key) – 관련 값이 반환될 키 / return : 지정된 키가 매핑되는 값, 키에 대한 매핑이 없으면  null
     }
 
     /**

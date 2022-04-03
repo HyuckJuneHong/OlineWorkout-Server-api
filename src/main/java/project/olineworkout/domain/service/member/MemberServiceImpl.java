@@ -18,12 +18,12 @@ public class MemberServiceImpl implements MemberService {
 
     /**
      * 로그인 서비스
-     *        -> To Do... 시큐리티 토큰 적용 예정
+     * To do ...
      * @param login
      * @return
      */
     @Override
-    public String login(MemberDto.LOGIN login){
+    public MemberDto.TOKEN login(MemberDto.LOGIN login){
 
 
         Member member = memberRepository.findByIdentity(login.getIdentity())
@@ -33,7 +33,9 @@ public class MemberServiceImpl implements MemberService {
                 throw new BadRequestException("비밀번호 일치하지 않음");
         }
 
-        return login.getIdentity();
+//        String[] tokens = genrateToken(member);
+
+        return new MemberDto.TOKEN();
     }
 
     /**

@@ -42,7 +42,7 @@ import javax.validation.constraints.Size;
         @ApiModelProperty(example = "010-xxxx-xxxx")
         @NotBlank(message = "전화번호를 입력해주세요.")
         private String phone;
-        @ApiModelProperty(example = "ROLE_USER or ROLE_TRAINER or ROLE_MEMBER or ROLE_MANAGER or ROLE_ADMIN")
+        @ApiModelProperty(example = "ROLE_MEMBER or ROLE_TRAINER or ROLE_MANAGER or ROLE_ADMIN")
         @NotBlank(message = "유저 권한을 입력해주세요.")
         private MemberRole memberRole;
     }
@@ -50,24 +50,24 @@ import javax.validation.constraints.Size;
     @Getter
     public static class LOGIN{
 
-        @ApiModelProperty(example = "사용할 아이디")
+        @ApiModelProperty(example = "로그인 아이디")
         @NotBlank(message = "아이디를 입력해주세요.")
         private String identity;
-        @ApiModelProperty(example = "사용할 비밀번호")
+        @ApiModelProperty(example = "로그인할 비밀번호")
         @NotBlank(message = "비밀번호를 입력해주세요.")
         private String password;
+        @ApiModelProperty(example = "FCM 토큰 정보")
+        @NotBlank(message = "FCM 토큰 정보를 입력해주세요.")
+        private String fcmToken;
 
-        /*
-            To Do.
-            시큐리티 토큰 추가
-         */
     }
 
     public static class TOKEN{
-        /*
-            To Do.
-            시큐리티 토큰 추가
-         */
+        @ApiModelProperty(example = "사용자 인증을 위한 accessToken")
+        private String accessToken;
+
+        @ApiModelProperty(example = "자동 로그인을 위한 refreshToken")
+        private String refreshToken;
     }
 
     @Getter
