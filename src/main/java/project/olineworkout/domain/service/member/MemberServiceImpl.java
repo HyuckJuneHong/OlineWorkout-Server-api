@@ -3,11 +3,13 @@ package project.olineworkout.domain.service.member;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import project.olineworkout.domain.dto.MemberDto;
 import project.olineworkout.domain.entity.member.Member;
 import project.olineworkout.domain.shared.ResponseFormat;
 import project.olineworkout.infrastructure.exception.BadRequestException;
 import project.olineworkout.infrastructure.exception.NotFoundException;
+import project.olineworkout.infrastructure.security.jwt.JwtTokenProvider;
 import project.olineworkout.repository.member.MemberRepository;
 
 @Service
@@ -15,16 +17,16 @@ import project.olineworkout.repository.member.MemberRepository;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
+    private final JwtTokenProvider jwtTokenProvider;
 
     /**
      * 로그인 서비스
-     * To do ...
      * @param login
      * @return
      */
     @Override
+    @Transactional
     public MemberDto.TOKEN login(MemberDto.LOGIN login){
-
 
         Member member = memberRepository.findByIdentity(login.getIdentity())
                 .orElseThrow(() -> new NotFoundException("MemberEntity"));
@@ -33,9 +35,12 @@ public class MemberServiceImpl implements MemberService {
                 throw new BadRequestException("비밀번호 일치하지 않음");
         }
 
-//        String[] tokens = genrateToken(member);
+        String[] tokens = generateToken(member);
 
-        return new MemberDto.TOKEN();
+        member.updateFcmToken(login.getFcmToken());
+        member.updateRefreshToken(tokens[1]);
+
+        return new MemberDto.TOKEN(tokens[0], tokens[1]);
     }
 
     /**
@@ -82,19 +87,35 @@ public class MemberServiceImpl implements MemberService {
      * @return
      */
     @Override
-    public ResponseFormat updateUser(MemberDto.UPDATE update){
+    public ResponseFormat updateMember(MemberDto.UPDATE update){
 
         Member member = memberRepository.findByIdentity(update.getIdentity())
-                .orElseThrow(() -> new NotFoundException("UserEntity"));
+                .orElseThrow(() -> new NotFoundException("memberEntity"));
         if(member == null){
             return ResponseFormat.fail("해당 아이디 존재하지 않음");
         }
 
-        member.updateUser(update);
+        member.updateMember(update);
         memberRepository.save(member);
 
         return ResponseFormat.ok();
     }
 
+    /**
+     * To do ....
+     * @param update_password
+     * @return
+     */
+    @Override
+    public ResponseFormat updatePassword(MemberDto.UPDATE_PASSWORD update_password) {
+        return null;
+    }
+
+    private String[] generateToken(Member member) {
+        String accessToken = jwtTokenProvider.createAccessToken(member.getIdentity(), member.getMemberRole(), member.getName());
+        String refreshToken = jwtTokenProvider.createRefreshToken(member.getIdentity(), member.getMemberRole(), member.getName());
+
+        return new String[]{accessToken, refreshToken};
+    }
 
 }

@@ -48,6 +48,9 @@ import javax.validation.constraints.Size;
     }
 
     @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class LOGIN{
 
         @ApiModelProperty(example = "로그인 아이디")
@@ -56,12 +59,21 @@ import javax.validation.constraints.Size;
         @ApiModelProperty(example = "로그인할 비밀번호")
         @NotBlank(message = "비밀번호를 입력해주세요.")
         private String password;
+
+        //To Do What?
+        //안드로이드 기기는 폰마다 고유의 값들이 있는데, 이 값을 구글 서비스를 통해 토큰 값을 추출할 수 있다.
+        //더 공부를 해봐야 하지만, 대충 마지막 기기에서 로그인을 하고 그 로그인한 해당 기기에 알림(Ex: 카카오톡, 당근)을 보내기 위해 사용하는 것.
+        //더 공부를 해보자
         @ApiModelProperty(example = "FCM 토큰 정보")
         @NotBlank(message = "FCM 토큰 정보를 입력해주세요.")
         private String fcmToken;
 
     }
 
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class TOKEN{
         @ApiModelProperty(example = "사용자 인증을 위한 accessToken")
         private String accessToken;
@@ -99,5 +111,20 @@ import javax.validation.constraints.Size;
         @ApiModelProperty(example = "184cm")
         private Integer height;
 
+    }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class UPDATE_PASSWORD {
+        @ApiModelProperty(example = "기존 비밀번호")
+        private String password;
+
+        @ApiModelProperty(example = "새 비밀번호")
+        private String newPassword;
+
+        @ApiModelProperty(example = "새 비밀번호 확인")
+        private String reNewPassword;
     }
 }
