@@ -1,7 +1,7 @@
 package project.olineworkout.domain.service.member;
 
-
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.olineworkout.domain.dto.MemberDto;
@@ -18,7 +18,7 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
     private final JwtTokenProvider jwtTokenProvider;
-
+    private final PasswordEncoder passwordEncoder; // What?
     /**
      * 로그인 서비스
      * @param login
@@ -31,7 +31,7 @@ public class MemberServiceImpl implements MemberService {
         Member member = memberRepository.findByIdentity(login.getIdentity())
                 .orElseThrow(() -> new NotFoundException("MemberEntity"));
 
-        if(!member.getPassword().equals(login.getPassword())){
+        if(!member.getPassword().equals(login.getPassword())){ //To do....
                 throw new BadRequestException("비밀번호 일치하지 않음");
         }
 
@@ -42,6 +42,17 @@ public class MemberServiceImpl implements MemberService {
 
         return new MemberDto.TOKEN(tokens[0], tokens[1]);
     }
+
+    /**
+     * To do list...
+     * boolean reCheckPassword(String password){
+     *     return passwordEncoder.matches(password, UserThreadLocal.get().getPassword();
+     * }
+     *
+     * boolean resetPasswordCheck(UserDto.RESET_CHECK reset){
+     *     To do..
+     * }
+     */
 
     /**
      * 회원 가입 서비스
@@ -75,7 +86,6 @@ public class MemberServiceImpl implements MemberService {
     public boolean checkIdentity(String identity){
         return memberRepository.existsByIdentity(identity);
     }
-
 
     /**
      * 고객 정보 수정 서비스
@@ -111,6 +121,11 @@ public class MemberServiceImpl implements MemberService {
         return null;
     }
 
+    /**
+     * 토큰 발급
+     * @param member
+     * @return
+     */
     private String[] generateToken(Member member) {
         String accessToken = jwtTokenProvider.createAccessToken(member.getIdentity(), member.getMemberRole(), member.getName());
         String refreshToken = jwtTokenProvider.createRefreshToken(member.getIdentity(), member.getMemberRole(), member.getName());
