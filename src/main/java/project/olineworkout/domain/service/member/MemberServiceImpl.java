@@ -18,7 +18,8 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
     private final JwtTokenProvider jwtTokenProvider;
-    private final PasswordEncoder passwordEncoder; // What?
+    private final PasswordEncoder passwordEncoder;
+
     /**
      * 로그인 서비스
      * @param login
@@ -31,28 +32,24 @@ public class MemberServiceImpl implements MemberService {
         Member member = memberRepository.findByIdentity(login.getIdentity())
                 .orElseThrow(() -> new NotFoundException("MemberEntity"));
 
-        if(!member.getPassword().equals(login.getPassword())){ //To do....
+        //boolean matches(rP, eP) : 저장소에서 얻은 인코딩된 암호도 인코딩된 원시 암호화 일치하는지 확인하는 메소드 (절대 디코딩되지 않음)
+        if(!passwordEncoder.matches(login.getPassword(), member.getPassword())){
                 throw new BadRequestException("비밀번호 일치하지 않음");
         }
 
         String[] tokens = generateToken(member);
 
-        member.updateFcmToken(login.getFcmToken());
+        member.updateFcmToken(login.getFcmToken()); //To do ... => FCM Token
         member.updateRefreshToken(tokens[1]);
 
         return new MemberDto.TOKEN(tokens[0], tokens[1]);
     }
 
-    /**
-     * To do list...
-     * boolean reCheckPassword(String password){
-     *     return passwordEncoder.matches(password, UserThreadLocal.get().getPassword();
-     * }
-     *
-     * boolean resetPasswordCheck(UserDto.RESET_CHECK reset){
-     *     To do..
-     * }
-     */
+    //To do...
+//    boolean reCheckPassword(String password){
+//        return passwordEncoder.matches(password, UserThreadLocal.get().getPassword();
+//    }
+//    boolean resetPasswordCheck(UserDto.RESET_CHECK reset)
 
     /**
      * 회원 가입 서비스
