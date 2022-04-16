@@ -2,7 +2,7 @@ package project.olineworkout.infrastructure.interceptor;
 
 import project.olineworkout.domain.entity.member.Member;
 
-public class UserThreadLocal {
+public class MemberThreadLocal {
 
     private static final ThreadLocal<Member> threadLocal;
 
