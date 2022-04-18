@@ -183,7 +183,7 @@ public class JwtTokenProvider {
     public Optional<String> resolveToken(HttpServletRequest request) {
 
         //ofNullable(): null 이어도 예외 던지지 않고 비어있는 Optional 객체 생성
-        return Optional.ofNullable(request.getHeader("X-AUTH-TOKEN"));
+        return Optional.ofNullable(request.getHeader("Authorization"));
     }
 
     /** 1. JwtParser 가져오고 -> 키를 덮어쓴 후 -> 해당 token을 클레임 Jws로 파싱 -> JWT BODY의 String 또는 Claims 인스턴스

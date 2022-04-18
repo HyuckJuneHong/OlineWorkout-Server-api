@@ -9,6 +9,7 @@ import project.olineworkout.domain.entity.member.Member;
 import project.olineworkout.domain.shared.ResponseFormat;
 import project.olineworkout.infrastructure.exception.BadRequestException;
 import project.olineworkout.infrastructure.exception.NotFoundException;
+import project.olineworkout.infrastructure.interceptor.MemberThreadLocal;
 import project.olineworkout.infrastructure.security.jwt.JwtTokenProvider;
 import project.olineworkout.repository.member.MemberRepository;
 
@@ -86,40 +87,40 @@ public class MemberServiceImpl implements MemberService {
 
     /**
      * 고객 정보 수정 서비스
-     *     ->To Do... 시큐리티 적용하면 아래 처럼 수정
-     *         UserEntity userEntity = UserThreadLocal.get();
-     *         userEntity.update(update);
-     *         userRepository.save(userEntity);
      * @param update
      * @return
      */
     @Override
-    public ResponseFormat updateMember(MemberDto.UPDATE update){
+    public void updateMember(MemberDto.UPDATE update){
 
-        Member member = memberRepository.findByIdentity(update.getIdentity())
-                .orElseThrow(() -> new NotFoundException("memberEntity"));
-        if(member == null){
-            return ResponseFormat.fail("해당 아이디 존재하지 않음");
-        }
-
+        Member member = MemberThreadLocal.get();
         member.updateMember(update);
         memberRepository.save(member);
-
-        return ResponseFormat.ok();
     }
 
     /**
-     * To do ....
+     * 비밀번호 변경 서비스
      * @param update_password
      * @return
      */
     @Override
-    public ResponseFormat updatePassword(MemberDto.UPDATE_PASSWORD update_password) {
-        return null;
+    public void updatePassword(MemberDto.UPDATE_PASSWORD update_password) {
+
+        Member member = MemberThreadLocal.get();
+        if(!passwordEncoder.matches(update_password.getPassword(), member.getPassword())){
+            throw new BadRequestException("비밀번호가 올바르지 않습니다.");
+        }
+
+        if(!update_password.getNewPassword().equals(update_password.getReNewPassword())){
+            throw new BadRequestException("새 비밀번호가 일치하지 않습니다.");
+        }
+
+        member.updatePassword(passwordEncoder.encode(update_password.getNewPassword()));
+        memberRepository.save(member);
     }
 
     /**
-     * 토큰 발급
+     * 토큰 발급 서비스
      * @param member
      * @return
      */
