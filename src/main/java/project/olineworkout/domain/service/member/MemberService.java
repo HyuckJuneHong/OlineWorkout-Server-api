@@ -16,6 +16,8 @@ public interface MemberService {
     //update
     void updateMember(MemberDto.UPDATE update); //회원 정보 수정 서비스
     void updatePassword(MemberDto.UPDATE_PASSWORD update_password); //비밀번호 변경 서비스
-
+    boolean reCheckPassword(String password);   //비밀번호 재확인 서비스
+    boolean resetPasswordCheck(MemberDto.RESET_CHECK reset_check); //비밀번호 초기화 확인 서비스
+    void resetPassword(MemberDto.RESET_PASSWORD reset_password); //비밀번호 초기화 서비스
 
 }

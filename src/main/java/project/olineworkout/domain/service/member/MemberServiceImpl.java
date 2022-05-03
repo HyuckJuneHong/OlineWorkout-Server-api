@@ -46,11 +46,54 @@ public class MemberServiceImpl implements MemberService {
         return new MemberDto.TOKEN(tokens[0], tokens[1]);
     }
 
-    //To do...
-//    boolean reCheckPassword(String password){
-//        return passwordEncoder.matches(password, UserThreadLocal.get().getPassword();
-//    }
-//    boolean resetPasswordCheck(UserDto.RESET_CHECK reset)
+
+    /**
+     * 비밀번호 재확인 메소드
+     * @param password
+     * @return
+     */
+    @Override
+    public boolean reCheckPassword(String password){
+        //boolean matches(rP, eP) : 저장소에서 얻은 인코딩된 암호도 인코딩된 원시 암호화 일치하는지 확인하는 메소드 (절대 디코딩되지 않음)
+        return passwordEncoder.matches(password, MemberThreadLocal.get().getPassword());
+    }
+
+    /**
+     * 비밀번호 초기화 확인 메서드
+     * @param reset
+     * @return
+     */
+    @Override
+    public boolean resetPasswordCheck(MemberDto.RESET_CHECK reset){
+        return memberRepository.existsByIdentityAndNameAndBirthDay(reset.getIdentity(), reset.getName(), reset.getBirth());
+    }
+
+    /**
+     * 비밀번호 초기화 메소드
+     * @param reset_password
+     */
+    @Override
+    public void resetPassword(MemberDto.RESET_PASSWORD reset_password) {
+        if(!reset_password.getNewPassword().equals(reset_password.getReNewPassword())) {
+            throw new BadRequestException("변경하려는 비밀번호가 서로 일치하지 않습니다.");
+        }
+
+        Member member = memberRepository.findByIdentity(reset_password.getIdentity())
+                .orElseThrow(() -> new NotFoundException("MemberEntity"));
+        member.updatePassword(passwordEncoder.encode(reset_password.getNewPassword()));
+        memberRepository.save(member);
+    }
+
+    /**
+     * 아이디 중복 체크
+     * @param identity
+     * @return
+     */
+    @Override
+    public boolean checkIdentity(String identity){
+        return memberRepository.existsByIdentity(identity);
+    }
+
 
     /**
      * 회원 가입 서비스
@@ -73,16 +116,6 @@ public class MemberServiceImpl implements MemberService {
                 .phone(create.getPhone())
                 .memberRole(create.getMemberRole())
                 .build());
-    }
-
-    /**
-     * 아이디 중복 체크
-     * @param identity
-     * @return
-     */
-    @Override
-    public boolean checkIdentity(String identity){
-        return memberRepository.existsByIdentity(identity);
     }
 
     /**

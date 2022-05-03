@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import project.olineworkout.domain.entity.member.Gender;
 import project.olineworkout.domain.entity.member.MemberRole;
+import project.olineworkout.domain.shared.Address;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -86,13 +87,34 @@ import javax.validation.constraints.Size;
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
+    public static class READ{
+
+        @ApiModelProperty(example = "아이디") //example - 지정된 임의 테스트 값을 입력 함
+        private String identity;
+        @ApiModelProperty(example = "홍길동")
+        private String name;
+        @ApiModelProperty(example = "MALE or FEMALE")
+        private Gender gender;
+        @ApiModelProperty(example = "19980122")
+        private String birthDay;
+        private Address address;
+        @ApiModelProperty(example = "010-xxxx-xxxx")
+        private String phone;
+        @ApiModelProperty(example = "72kg")
+        private Integer weight;
+        @ApiModelProperty(example = "184cm")
+        private Integer height;
+
+    }
+
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class UPDATE{
 
-        //To Do... 시큐리티 더 공부하고 ThreadLocal 써서 수정 예정.
-        @ApiModelProperty(example = "시큐리티 적용전 필요해서 넣음")
-        @NotBlank
-        private String identity;
-        //------------------------------------------
+        //ThreadLocal을 사용하기 때문에, identity 데이터가 없어도 됨.
 
         @ApiModelProperty(example = "홍길동")
         @NotBlank(message = "이름을 입력해주세요.")
@@ -120,6 +142,36 @@ import javax.validation.constraints.Size;
     public static class UPDATE_PASSWORD {
         @ApiModelProperty(example = "기존 비밀번호")
         private String password;
+
+        @ApiModelProperty(example = "새 비밀번호")
+        private String newPassword;
+
+        @ApiModelProperty(example = "새 비밀번호 확인")
+        private String reNewPassword;
+    }
+
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    @Getter
+    public class RESET_CHECK {
+        @ApiModelProperty(example = "아이디")
+        private String identity;
+
+        @ApiModelProperty(example = "홍길동")
+        private String name;
+
+        @ApiModelProperty(example = "19951217")
+        private String birth;
+    }
+
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    @Getter
+    public static class RESET_PASSWORD {
+        @ApiModelProperty(example = "아이디")
+        private String identity;
 
         @ApiModelProperty(example = "새 비밀번호")
         private String newPassword;
